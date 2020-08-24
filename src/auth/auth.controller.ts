@@ -1,9 +1,8 @@
 import { Controller,Request, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { LocalStrategy } from './local.strategy';
 import { LocalAuthGuard } from './local-auth.guard';
 
-@Controller('auth')
+@Controller('')
 export class AuthController {
   constructor(private readonly authService: AuthService){}
 

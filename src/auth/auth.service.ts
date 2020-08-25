@@ -3,7 +3,7 @@ import { ClientProxy } from '@nestjs/microservices';
 import { JwtService } from '@nestjs/jwt';
 import { catchError, timeout } from 'rxjs/operators';
 import { throwError, TimeoutError } from 'rxjs';
-import {compareSync} from 'bcrypt'
+import { compareSync } from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -27,23 +27,23 @@ export class AuthService {
           }))
         .toPromise();
 
-      if(compareSync(password, user?.password)){
-        return user
+      if (compareSync(password, user?.password || '')) {
+        return user;
       }
 
-      return null
+      return null;
     } catch (e) {
       Logger.log(e);
       throw e;
     }
   }
 
-  async login(user){
-    const payload = {user, sub: user.id}
+  async login(user) {
+    const payload = { user, sub: user.id };
 
     return {
       userId: user.id,
-      accessToken: this.jwtService.sign(payload)
-    }
+      accessToken: this.jwtService.sign(payload),
+    };
   }
 }
